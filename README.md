@@ -1,2 +1,2 @@
 # BirdyGame
-just touch the spikes!
+dont touch the spikes!
