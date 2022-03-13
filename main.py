@@ -28,9 +28,7 @@ def is_finished():
             elif event.key == py.K_SPACE:
                 manager.jump()
     if manager.bird_fell() or manager.touched_spike():
-        manager.game_on = False
-        manager.game_over = True
-        manager.update_best_score()
+        manager.end_game()
     manager.check_touched_bonus()
     return finished
 

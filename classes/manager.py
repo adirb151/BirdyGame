@@ -116,3 +116,8 @@ class Manager:
     def refresh_bonus(self):
         self.bonus = Bonus()
 
+    def end_game(self):
+        self.game_on = False
+        self.game_over = True
+        self.update_best_score()
+
