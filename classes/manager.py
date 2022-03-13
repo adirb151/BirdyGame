@@ -2,6 +2,7 @@ import pygame
 import random
 
 from classes.bird import Bird
+from classes.bonus import Bonus
 from classes.file_reader import Reader
 from classes.spike import Spike
 from constants import *
@@ -19,6 +20,7 @@ class Manager:
         self.score = 0
         self.reader = Reader()
         self.best_score = self.reader.best_score
+        self.bonus = Bonus()
 
     def show_background(self):
         pygame.draw.rect(self.screen, BLACK_COLOR, pygame.Rect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -99,4 +101,18 @@ class Manager:
     def update_best_score(self):
         if self.score > int(self.best_score):
             self.reader.update_best_score(str(self.score))
+
+    def show_bonus(self):
+        self.screen.blit(self.bonus.img, (self.bonus.pos_x, self.bonus.pos_y))
+
+    def check_touched_bonus(self):
+        bird_rect = pygame.Rect(self.bird.pos_x, self.bird.pos_y, BIRD_WIDTH, BIRD_HEIGHT)
+        bonus_rect = pygame.Rect(self.bonus.pos_x, self.bonus.pos_y, BONUS_WIDTH, BONUS_HEIGHT)
+        if bird_rect.colliderect(bonus_rect):
+            self.score += BONUS_ADDITION
+            self.bonus.pos_x = -BONUS_WIDTH
+            self.bonus.pos_y = -BONUS_HEIGHT
+
+    def refresh_bonus(self):
+        self.bonus = Bonus()
 
